@@ -1,12 +1,17 @@
 <mvc:View controllerName="sapips.training.odata.controller.Main"
     xmlns:mvc="sap.ui.core.mvc"
     xmlns:core = "sap.ui.core"
+	xmlns:l="sap.ui.layout"
     xmlns="sap.m">
     <Page id="page" title="{i18n>title}">
 <!-- Reference from Demo Kit :) -->
-<!-- Sorted by ProductName -->
-    <Table id="tblProducts" inset="false" items="{ path: '/Products', sorter: { path: 'ProductName'} }"  >  
-
+<!-- Sorted by ProductName, Filter by Discontinued = true -->
+    <Table id="tblProducts" 
+           inset="false" 
+           items="{ path: '/Products', 
+                    sorter: { path: 'ProductName'},
+                    filters:[{ path: 'Discontinued', operator: 'EQ', value1: 'true'
+                            }] }" >  
 <!-- To display the Products Header Text -->
 		<headerToolbar>
 			<OverflowToolbar id="toolbarHeader">
@@ -24,27 +29,31 @@
 <!-- Build Column Header -->
 		<columns>
             <Column id="colProducts">
-            <Text id="txtProducts" text="{i18n>colProduct}">
-            </Text>
+                <Text id="txtProducts" text="{i18n>colProduct}">
+                </Text>
             </Column>
 
             <Column id="colSupplierID">
-            <Text id="txtSupplierID" text="{i18n>colSupplierID}">
-            </Text>
+                <Text id="txtSupplierID" text="{i18n>colSupplierID}">
+                </Text>
             </Column>
             
             <Column id="colPrice">
-            <Text id="txtPrice" text="{i18n>colPrice}">
-            </Text>
+                <Text id="txtPrice" text="{i18n>colPrice}">
+                </Text>
             </Column>
+<!-- Enable incase you want to display the Discontinued values -->
+            <!-- <Column id="colDiscon">
+                <Text id="idDiscon" text="{i18n>colDiscontinued}">
+                </Text>
+            </Column> -->
+
         </columns>
 
 <!-- Create Product List  -->
         <items>
             <ColumnListItem id="clistItems" vAlign="Middle">
-            <!-- No ID attribute so no need to put identifier -->
                 <cells>
-
                 <!-- The Product column uses an Object Identifier and are using the ProductName and ProductID -->
                     <ObjectIdentifier id="objProductName" 
                                     title="{ProductName}" 
@@ -60,6 +69,10 @@
                                     title="{UnitPrice}" 
                                     text="{QuantityPerUnit}" >
                     </ObjectIdentifier>
+
+                <!-- Add new Column for Discontinued Status: Enable incase you want to display the Discontinued values -->
+                    <!-- <Text id="txtDiscon" text="{Discontinued}">
+                    </Text> -->
 
                 </cells>
             </ColumnListItem>
